@@ -17,4 +17,4 @@ primitive-types = { version = "0.10", default-features = false }
 strum = "0.24"
 borsh = { version = "0.9", features = ["rc"] }
 near-primitives-core = "0.14.0"
-near-crypto = "0.14.0"
+near-crypto = "0.15.0"
