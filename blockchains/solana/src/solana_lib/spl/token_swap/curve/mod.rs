@@ -419,7 +419,7 @@ pub mod math {
         /// Based on testing around the limits, this base is the smallest value that
         /// provides an epsilon of 11 digits
         fn maximum_sqrt_base() -> Self {
-            Self::new(std::u128::MAX).unwrap()
+            Self::new(core::u128::MAX).unwrap()
         }
 
         /// Approximate the square root using Newton's method.  Based on testing,

@@ -1,3 +1,5 @@
+extern crate alloc;
+
 pub mod program_option;
 pub mod program_pack;
 pub mod stake;
@@ -28,7 +30,7 @@ pub mod clock {
 
 pub mod program_utils {
     use crate::solana_lib::solana_program::instruction::InstructionError;
-    use bincode::Options;
+    use bincode::config;
 
     /// Deserialize with a limit based the maximum amount of data a program can expect to get.
     /// This function should be used in place of direct deserialization to help prevent OOM errors
@@ -39,17 +41,18 @@ pub mod program_utils {
     where
         T: serde::de::DeserializeOwned,
     {
-        bincode::options()
-            .with_limit(limit)
-            .with_fixint_encoding() // As per https://github.com/servo/bincode/issues/333, these two options are needed
-            .allow_trailing_bytes() // to retain the behavior of bincode::deserialize with the new `options()` method
-            .deserialize_from(instruction_data)
+        let config = bincode::config::standard()
+            .with_limit::<{ 1280 - 40 - 8 }>()
+            .with_fixed_int_encoding()
+            .with_little_endian();
+
+        bincode::serde::decode_from_slice(instruction_data, config)
+            .map(|(value, _)| value)
             .map_err(|_| InstructionError::InvalidInstructionData)
     }
 }
 
 pub mod instruction {
-    use thiserror::Error;
     /// Reasons the runtime might have rejected an instruction.
     ///
     /// Instructions errors are included in the bank hashes and therefore are
@@ -59,6 +62,8 @@ pub mod instruction {
     /// with an error be consistent across software versions.  For example, it is
     /// dangerous to include error strings from 3rd party crates because they could
     /// change at any time and changes to them are difficult to detect.
+    use alloc::string::String;
+    use thiserror::Error;
     #[derive(Error, Debug)]
     pub enum InstructionError {
         /// Deprecated! Use CustomError instead!
@@ -289,9 +294,8 @@ pub mod instruction {
 }
 
 pub mod pubkey {
-    use serde_derive::{Deserialize, Serialize};
-    use std::fmt;
-
+    use core::fmt;
+    use serde::{Deserialize, Serialize};
     pub const PUBKEY_BYTES: usize = 32;
 
     #[derive(
@@ -322,8 +326,8 @@ pub mod pubkey {
 }
 
 pub mod hash {
-    use serde_derive::{Deserialize, Serialize};
-    use std::fmt;
+    use core::fmt;
+    use serde::{Deserialize, Serialize};
 
     pub const HASH_BYTES: usize = 32;
 
@@ -346,7 +350,8 @@ pub mod hash {
 }
 
 pub mod program_error {
-    use serde_derive::{Deserialize, Serialize};
+    use alloc::string::String;
+    use serde::{Deserialize, Serialize};
     use thiserror::Error;
     /// Reasons the program may fail
     #[derive(Clone, Debug, Deserialize, Eq, Error, PartialEq, Serialize)]

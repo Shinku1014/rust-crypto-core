@@ -1,7 +1,14 @@
+extern crate alloc;
+
+use alloc::format;
+use alloc::string::{String, ToString};
+use alloc::vec::Vec;
+
 use crate::compact::Compact;
 use crate::error::{Result, SolanaError};
 use crate::instruction::Instruction;
 use crate::read::Read;
+
 use bs58;
 use serde_json::{json, Value};
 

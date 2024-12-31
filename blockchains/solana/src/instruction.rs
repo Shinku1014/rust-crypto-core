@@ -1,3 +1,9 @@
+extern crate alloc;
+
+use alloc::format;
+use alloc::string::{String, ToString};
+use alloc::vec::Vec;
+
 use crate::compact::Compact;
 use crate::error::SolanaError::ProgramError;
 use crate::error::{Result, SolanaError};

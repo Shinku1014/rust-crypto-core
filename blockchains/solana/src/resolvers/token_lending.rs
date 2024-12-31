@@ -4,7 +4,10 @@ use crate::solana_lib::solana_program::pubkey::Pubkey;
 use crate::solana_lib::spl::token_lending::instruction::LendingInstruction;
 use crate::solana_lib::spl::token_lending::state::ReserveConfig;
 use serde_json::{json, Value};
-
+extern crate alloc;
+use alloc::format;
+use alloc::string::{String, ToString};
+use alloc::vec::Vec;
 static PROGRAM_NAME: &str = "TokenLending";
 
 pub fn resolve(instruction: LendingInstruction, accounts: Vec<String>) -> Result<Value> {
@@ -71,7 +74,7 @@ fn init_lending_market(
         method_name
     )))?;
     let owner = owner.to_string();
-    let quote_currency = std::str::from_utf8(&quote_currency)
+    let quote_currency = core::str::from_utf8(&quote_currency)
         .map_err(|_| SolanaError::InvalidData(format!("{}.quote_currency", method_name)))?;
     Ok(template_instruction(
         PROGRAM_NAME,

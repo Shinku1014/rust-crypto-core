@@ -3,6 +3,10 @@ use crate::resolvers::template_instruction;
 use crate::solana_lib::solana_program::program_option::COption;
 use crate::solana_lib::solana_program::pubkey::Pubkey;
 use crate::solana_lib::spl::token::instruction::{AuthorityType, TokenInstruction};
+extern crate alloc;
+use alloc::format;
+use alloc::string::{String, ToString};
+use alloc::vec::Vec;
 use serde_json::{json, Value};
 
 fn map_coption_to_option<T>(value: COption<T>) -> Option<T> {
@@ -24,12 +28,7 @@ pub fn resolve(instruction: TokenInstruction, accounts: Vec<String>) -> Result<V
             mint_authority,
             decimals,
             freeze_authority,
-        } => initialize_mint(
-            accounts,
-            mint_authority,
-            decimals,
-            freeze_authority,
-        ),
+        } => initialize_mint(accounts, mint_authority, decimals, freeze_authority),
         TokenInstruction::InitializeAccount => initialize_account(accounts),
         TokenInstruction::InitializeMultisig { m } => initialize_multisig(accounts, m),
         TokenInstruction::Transfer { amount } => transfer(accounts, amount),
@@ -64,12 +63,7 @@ pub fn resolve(instruction: TokenInstruction, accounts: Vec<String>) -> Result<V
             mint_authority,
             decimals,
             freeze_authority,
-        } => initialize_mint_2(
-            accounts,
-            mint_authority,
-            decimals,
-            freeze_authority,
-        ),
+        } => initialize_mint_2(accounts, mint_authority, decimals, freeze_authority),
     }
 }
 

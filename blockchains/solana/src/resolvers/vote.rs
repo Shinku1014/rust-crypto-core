@@ -8,7 +8,10 @@ use crate::solana_lib::solana_program::vote::state::{
     VoteStateUpdate,
 };
 use serde_json::{json, Value};
-
+extern crate alloc;
+use alloc::format;
+use alloc::string::{String, ToString};
+use alloc::vec::Vec;
 static PROGRAM_NAME: &str = "Vote";
 
 pub fn resolve(instruction: VoteInstruction, accounts: Vec<String>) -> Result<Value> {

@@ -3,7 +3,10 @@ use crate::resolvers::template_instruction;
 use crate::solana_lib::solana_program::pubkey::Pubkey;
 use crate::solana_lib::solana_program::system_instruction::SystemInstruction;
 use serde_json::{json, Value};
-
+extern crate alloc;
+use alloc::format;
+use alloc::string::{String, ToString};
+use alloc::vec::Vec;
 static PROGRAM_NAME: &str = "System";
 
 pub fn resolve(instruction: SystemInstruction, accounts: Vec<String>) -> Result<Value> {

@@ -1,6 +1,10 @@
 use crate::error::{Result, SolanaError};
 use crate::read::Read;
+extern crate alloc;
 
+use alloc::format;
+use alloc::vec;
+use alloc::vec::Vec;
 pub struct Compact<T> {
     compact_length: u32,
     pub(crate) data: Vec<T>,

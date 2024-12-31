@@ -2,9 +2,9 @@
 
 use crate::solana_lib::spl::token_swap::curve::math::PreciseNumber;
 use crate::solana_lib::spl::token_swap::error::SwapError;
+use alloc::fmt::Debug;
 #[cfg(feature = "fuzz")]
 use arbitrary::Arbitrary;
-use std::fmt::Debug;
 
 /// Initial amount of pool tokens for swap contract, hard-coded to something
 /// "sensible" given a maximum of u128.

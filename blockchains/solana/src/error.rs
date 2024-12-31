@@ -1,3 +1,5 @@
+extern crate alloc;
+use alloc::string::String;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
@@ -15,4 +17,5 @@ pub enum SolanaError {
     AccountNotFound(String),
 }
 
-pub type Result<T> = std::result::Result<T, SolanaError>;
+// 使用 core 替代 std
+pub type Result<T> = core::result::Result<T, SolanaError>;

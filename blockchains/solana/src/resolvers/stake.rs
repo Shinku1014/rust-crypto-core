@@ -5,7 +5,11 @@ use crate::solana_lib::solana_program::stake::instruction::{
     AuthorizeCheckedWithSeedArgs, AuthorizeWithSeedArgs, LockupArgs, LockupCheckedArgs,
     StakeInstruction,
 };
+extern crate alloc;
 use crate::solana_lib::solana_program::stake::state::{Authorized, Lockup, StakeAuthorize};
+use alloc::format;
+use alloc::string::{String, ToString};
+use alloc::vec::Vec;
 use serde_json::{json, Value};
 
 static PROGRAM_NAME: &str = "Stake";

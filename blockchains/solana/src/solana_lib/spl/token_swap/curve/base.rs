@@ -1,4 +1,3 @@
-
 use crate::solana_lib::solana_program::program_error::ProgramError;
 use crate::solana_lib::solana_program::program_pack::{Pack, Sealed};
 use crate::solana_lib::spl::token_swap::curve::calculator::CurveCalculator;
@@ -6,8 +5,8 @@ use crate::solana_lib::spl::token_swap::curve::constant_price::ConstantPriceCurv
 use crate::solana_lib::spl::token_swap::curve::constant_product::ConstantProductCurve;
 use crate::solana_lib::spl::token_swap::curve::offset::OffsetCurve;
 use crate::solana_lib::spl::token_swap::curve::stable::StableCurve;
+use alloc::sync::Arc;
 use arrayref::{array_mut_ref, array_ref, array_refs, mut_array_refs};
-use std::sync::Arc;
 
 /// Curve types supported by the token-swap program.
 #[cfg_attr(feature = "fuzz", derive(Arbitrary))]

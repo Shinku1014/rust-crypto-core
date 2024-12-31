@@ -1,6 +1,13 @@
+#![no_std]
+
+extern crate alloc;
+
 use crate::error::SolanaError;
 use crate::message::Message;
 use crate::read::Read;
+
+use alloc::string::String;
+use alloc::vec::Vec;
 
 use rcc_trait_chain::Chain;
 
@@ -28,7 +35,7 @@ impl Sol {
 }
 
 impl Chain<SolanaError> for Sol {
-    fn parse(data: &Vec<u8>) -> Result<String, SolanaError> {
+    fn parse(data: &Vec<u8>) -> core::result::Result<String, SolanaError> {
         Sol::parse_message(data.clone().to_vec().as_mut()).and_then(|v| v.to_json_str())
     }
 }

@@ -6,7 +6,10 @@ use crate::solana_lib::spl::token_swap::instruction::{
     WithdrawAllTokenTypes, WithdrawSingleTokenTypeExactAmountOut,
 };
 use serde_json::{json, Value};
-
+extern crate alloc;
+use alloc::format;
+use alloc::string::{String, ToString};
+use alloc::vec::Vec;
 static PROGRAM_NAME: &str = "TokenSwapV3";
 
 pub fn resolve(instruction: SwapInstruction, accounts: Vec<String>) -> Result<Value> {
@@ -278,10 +281,9 @@ fn withdraw_all_token_types(accounts: Vec<String>, args: WithdrawAllTokenTypes) 
         "{}.swap_authority_pubkey",
         method_name
     )))?;
-    let user_transfer_authority_pubkey = accounts.get(2).ok_or(SolanaError::AccountNotFound(format!(
-        "{}.user_transfer_authority_pubkey",
-        method_name
-    )))?;
+    let user_transfer_authority_pubkey = accounts.get(2).ok_or(SolanaError::AccountNotFound(
+        format!("{}.user_transfer_authority_pubkey", method_name),
+    ))?;
     let pool_mint = accounts.get(3).ok_or(SolanaError::AccountNotFound(format!(
         "{}.pool_mint",
         method_name
@@ -368,10 +370,9 @@ fn deposit_single_token_type_exact_amount_in(
         "{}.swap_authority_pubkey",
         method_name
     )))?;
-    let user_transfer_authority_pubkey = accounts.get(2).ok_or(SolanaError::AccountNotFound(format!(
-        "{}.user_transfer_authority_pubkey",
-        method_name
-    )))?;
+    let user_transfer_authority_pubkey = accounts.get(2).ok_or(SolanaError::AccountNotFound(
+        format!("{}.user_transfer_authority_pubkey", method_name),
+    ))?;
     let token_source_account = accounts.get(3).ok_or(SolanaError::AccountNotFound(format!(
         "{}.token_source_account",
         method_name
@@ -443,10 +444,9 @@ fn withdraw_single_token_type_exact_amount_out(
         "{}.swap_authority_pubkey",
         method_name
     )))?;
-    let user_transfer_authority_pubkey = accounts.get(2).ok_or(SolanaError::AccountNotFound(format!(
-        "{}.user_transfer_authority_pubkey",
-        method_name
-    )))?;
+    let user_transfer_authority_pubkey = accounts.get(2).ok_or(SolanaError::AccountNotFound(
+        format!("{}.user_transfer_authority_pubkey", method_name),
+    ))?;
     let pool_mint = accounts.get(3).ok_or(SolanaError::AccountNotFound(format!(
         "{}.token_source_account",
         method_name

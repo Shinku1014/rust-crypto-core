@@ -2,8 +2,12 @@ pub mod state {
     use crate::solana_lib::solana_program::clock::{Slot, UnixTimestamp};
     use crate::solana_lib::solana_program::hash::Hash;
     use crate::solana_lib::solana_program::pubkey::Pubkey;
-    use serde_derive::{Deserialize, Serialize};
-    use std::collections::VecDeque;
+    use serde::{Deserialize, Serialize};
+    extern crate alloc;
+    use alloc::collections::VecDeque;
+
+    use alloc::string::String;
+    use alloc::vec::Vec;
 
     #[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
     pub struct VoteInit {
@@ -76,7 +80,7 @@ pub mod instruction {
         Vote, VoteAuthorize, VoteAuthorizeCheckedWithSeedArgs, VoteAuthorizeWithSeedArgs, VoteInit,
         VoteStateUpdate,
     };
-    use serde_derive::{Deserialize, Serialize};
+    use serde::{Deserialize, Serialize};
 
     #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
     pub enum VoteInstruction {
